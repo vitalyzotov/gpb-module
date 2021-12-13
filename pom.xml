@@ -6,7 +6,7 @@
 
     <groupId>ru.vzotov</groupId>
     <artifactId>gpb-module</artifactId>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <name>Module: Gazprombank</name>
 
     <properties>
