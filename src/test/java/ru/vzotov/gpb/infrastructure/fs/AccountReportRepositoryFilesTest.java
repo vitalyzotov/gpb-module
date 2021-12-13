@@ -1,6 +1,5 @@
-package com.zf.home.gpb.infrastructure.fs;
+package ru.vzotov.gpb.infrastructure.fs;
 
-import com.zf.home.gpb.domain.model.GpbOperation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -8,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vzotov.accounting.domain.model.AccountReport;
 import ru.vzotov.accounting.domain.model.AccountReportId;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 
 import java.io.File;
 import java.time.LocalDateTime;

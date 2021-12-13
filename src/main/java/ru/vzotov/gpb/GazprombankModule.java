@@ -1,7 +1,7 @@
-package com.zf.home.gpb;
+package ru.vzotov.gpb;
 
-import com.zf.home.gpb.domain.model.GpbOperation;
-import com.zf.home.gpb.infrastructure.fs.GpbReportRepositoryFiles;
+import ru.vzotov.gpb.domain.model.GpbOperation;
+import ru.vzotov.gpb.infrastructure.fs.GpbReportRepositoryFiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;

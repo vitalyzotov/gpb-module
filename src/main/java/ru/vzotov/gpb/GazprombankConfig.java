@@ -1,4 +1,4 @@
-package com.zf.home.gpb;
+package ru.vzotov.gpb;
 
 import java.util.List;
 

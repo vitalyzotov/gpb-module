@@ -1,4 +1,4 @@
-package com.zf.home.gpb.application;
+package ru.vzotov.gpb.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,7 +1,7 @@
-package com.zf.home.gpb.application.impl;
+package ru.vzotov.gpb.application.impl;
 
-import com.zf.home.gpb.GazprombankConfig;
-import com.zf.home.gpb.domain.model.GpbOperation;
+import ru.vzotov.gpb.GazprombankConfig;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

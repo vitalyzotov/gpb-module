@@ -1,4 +1,4 @@
-package com.zf.home.gpb.domain.model;
+package ru.vzotov.gpb.domain.model;
 
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;

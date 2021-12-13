@@ -1,9 +1,9 @@
-package com.zf.home.gpb.infrastructure.fs;
+package ru.vzotov.gpb.infrastructure.fs;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.zf.home.gpb.domain.model.GpbOperation;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.QuoteMode;

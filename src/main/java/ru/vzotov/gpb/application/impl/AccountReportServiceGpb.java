@@ -1,7 +1,7 @@
-package com.zf.home.gpb.application.impl;
+package ru.vzotov.gpb.application.impl;
 
-import com.zf.home.gpb.GazprombankConfig;
-import com.zf.home.gpb.domain.model.GpbOperation;
+import ru.vzotov.gpb.GazprombankConfig;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.HashSet;
