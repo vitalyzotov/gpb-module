@@ -1,11 +1,7 @@
 package ru.vzotov.gpb.application.impl;
 
-import ru.vzotov.gpb.GazprombankConfig;
-import ru.vzotov.gpb.domain.model.GpbOperation;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.vzotov.accounting.application.AccountNotFoundException;
 import ru.vzotov.accounting.application.AccountReportNotFoundException;
@@ -20,9 +16,11 @@ import ru.vzotov.banking.domain.model.AccountNumber;
 import ru.vzotov.banking.domain.model.BankId;
 import ru.vzotov.banking.domain.model.OperationId;
 import ru.vzotov.banking.domain.model.OperationType;
-import ru.vzotov.person.domain.model.PersonId;
 import ru.vzotov.banking.domain.model.TransactionReference;
 import ru.vzotov.domain.model.Money;
+import ru.vzotov.gpb.GazprombankConfig;
+import ru.vzotov.gpb.domain.model.GpbOperation;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +30,6 @@ import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 
-@RunWith(JUnit4.class)
 public class AccountReportServiceImplTest {
 
     private static final AccountNumber ACCOUNT_NUMBER = new AccountNumber("40817810518370123456");
@@ -43,7 +40,7 @@ public class AccountReportServiceImplTest {
     private AccountRepository accountRepository;
     private CardRepository cardRepository;
 
-    @Before
+    @BeforeEach
     @SuppressWarnings("unchecked")
     public void setUp() throws Exception {
         reportRepository = (AccountReportRepository<GpbOperation>) Mockito.mock(AccountReportRepository.class);

@@ -159,7 +159,7 @@ public class AccountReportServiceGpb implements AccountReportService {
             // Пропускаем записи о блокировании средств на счете.
             // Это незавершенные операции, нельзя их учитывать как полноценные операции
             // Для Газпромбанка работать не будет, т.к. у них проблемы в API по учету заблокированных средств
-            if (row.isHold()) {
+            if (row.hold()) {
                 accountingService.registerHoldOperation(
                         accountNumber,
                         row.operationDate().toLocalDate(),
