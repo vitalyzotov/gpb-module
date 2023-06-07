@@ -1,7 +1,7 @@
 package ru.vzotov.gpb.domain.model;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import ru.vzotov.accounting.domain.model.AccountReportOperation;
 import ru.vzotov.ddd.shared.ValueObject;
 
