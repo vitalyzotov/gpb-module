@@ -3,7 +3,6 @@ package ru.vzotov.gpb.infrastructure.fs;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import ru.vzotov.gpb.domain.model.GpbOperation;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.QuoteMode;
@@ -15,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import ru.vzotov.accounting.domain.model.AccountReport;
 import ru.vzotov.accounting.domain.model.AccountReportId;
 import ru.vzotov.accounting.domain.model.AccountReportRepository;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
@@ -156,30 +155,29 @@ public class GpbReportRepositoryFiles implements AccountReportRepository<GpbOper
                     .build();
 
             Iterable<CSVRecord> records = csvFormat.parse(in);
-            final List<GpbOperation> operations = StreamSupport.stream(records.spliterator(), false).map(record -> {
-                final String status = record.get(HDR_STATUS);
+            final List<GpbOperation> operations = StreamSupport.stream(records.spliterator(), false)
+                    .map(record -> {
+                        final String status = record.get(HDR_STATUS);
+                        final DecimalFormat decimals = createDecimalFormat(new Locale("ru"));
+                        final LocalDateTime operationDateTime = LocalDateTime.parse(record.get(HDR_DATE), DATETIME_FORMAT);
+                        final String cardNumber = record.isMapped(HDR_CARD_NUMBER) ? record.get(HDR_CARD_NUMBER) : null;
+                        final String accountNumber = record.isMapped(HDR_ACCOUNT_NUMBER) ? record.get(HDR_ACCOUNT_NUMBER) : null;
+                        final String operationCurrency = mapCurrency(record.get(HDR_CURRENCY));
+                        final String description = record.get(HDR_DESCRIPTION);
+                        final Double deposit = parseDoubleOrNull(record.get(HDR_DEPOSIT), decimals);
+                        final Double withdraw = parseDoubleOrNull(record.get(HDR_WITHDRAW), decimals);
+                        final Double fee = parseDoubleOrNull(record.get(HDR_FEE), decimals);
 
-
-                final DecimalFormat decimals = createDecimalFormat(new Locale("ru"));
-                final LocalDateTime operationDateTime = LocalDateTime.parse(record.get(HDR_DATE), DATETIME_FORMAT);
-                final String cardNumber = record.isMapped(HDR_CARD_NUMBER) ? record.get(HDR_CARD_NUMBER) : null;
-                final String accountNumber = record.isMapped(HDR_ACCOUNT_NUMBER) ? record.get(HDR_ACCOUNT_NUMBER) : null;
-                final String operationCurrency = mapCurrency(record.get(HDR_CURRENCY));
-                final String description = record.get(HDR_DESCRIPTION);
-                final Double deposit = parseDoubleOrNull(record.get(HDR_DEPOSIT), decimals);
-                final Double withdraw = parseDoubleOrNull(record.get(HDR_WITHDRAW), decimals);
-                final Double fee = parseDoubleOrNull(record.get(HDR_FEE), decimals);
-
-                return new GpbOperation(
-                        operationDateTime,
-                        accountNumber,
-                        cardNumber,
-                        deposit != null ? deposit : withdraw != null ? withdraw : fee,
-                        operationCurrency,
-                        description,
-                        false
-                );
-            }).filter(Objects::nonNull).collect(Collectors.toList());
+                        return new GpbOperation(
+                                operationDateTime,
+                                accountNumber,
+                                cardNumber,
+                                deposit != null ? deposit : withdraw != null ? withdraw : fee,
+                                operationCurrency,
+                                description,
+                                false
+                        );
+                    }).toList();
 
             return new AccountReport<>(reportId, operations);
         } catch (FileNotFoundException e) {
@@ -196,7 +194,7 @@ public class GpbReportRepositoryFiles implements AccountReportRepository<GpbOper
         return Arrays.stream(Objects.requireNonNull(this.getBaseDirectory().listFiles(filter)))
                 .sorted(Comparator.naturalOrder())
                 .map(MAPPER)
-                .collect(Collectors.toList());
+                .toList();
 
     }
 
@@ -208,7 +206,7 @@ public class GpbReportRepositoryFiles implements AccountReportRepository<GpbOper
         return Arrays.stream(Objects.requireNonNull(this.getBaseDirectory().listFiles(filter)))
                 .sorted(Comparator.naturalOrder())
                 .map(MAPPER)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

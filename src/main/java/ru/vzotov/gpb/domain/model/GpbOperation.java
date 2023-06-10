@@ -8,8 +8,12 @@ import ru.vzotov.ddd.shared.ValueObject;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public record GpbOperation(LocalDateTime operationDate, String accountNumber, String cardNumber, Double operationAmount,
-                           String operationCurrency, String description,
+public record GpbOperation(LocalDateTime operationDate,
+                           String accountNumber,
+                           String cardNumber,
+                           Double operationAmount,
+                           String operationCurrency,
+                           String description,
                            boolean hold) implements ValueObject<GpbOperation>, AccountReportOperation {
 
     public GpbOperation {
@@ -47,18 +51,5 @@ public record GpbOperation(LocalDateTime operationDate, String accountNumber, St
                 , description
                 , hold
         );
-    }
-
-    @Override
-    public String toString() {
-        return "GpbOperation{" +
-                "date=" + operationDate +
-                ", card=" + cardNumber +
-                ", account=" + accountNumber +
-                ", amount=" + operationAmount +
-                ", currency=" + operationCurrency +
-                ", description=" + description +
-                ", hold=" + hold +
-                '}';
     }
 }
