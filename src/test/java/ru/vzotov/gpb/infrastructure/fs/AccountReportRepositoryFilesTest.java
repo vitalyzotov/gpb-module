@@ -1,8 +1,6 @@
 package ru.vzotov.gpb.infrastructure.fs;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vzotov.accounting.domain.model.AccountReport;
@@ -16,7 +14,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(JUnit4.class)
 public class AccountReportRepositoryFilesTest {
 
     private static final Logger log = LoggerFactory.getLogger(AccountReportRepositoryFilesTest.class);

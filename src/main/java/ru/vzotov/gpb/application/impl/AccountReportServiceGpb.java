@@ -1,8 +1,6 @@
 package ru.vzotov.gpb.application.impl;
 
-import ru.vzotov.gpb.GazprombankConfig;
-import ru.vzotov.gpb.domain.model.GpbOperation;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,8 @@ import ru.vzotov.banking.domain.model.OperationId;
 import ru.vzotov.banking.domain.model.OperationType;
 import ru.vzotov.banking.domain.model.TransactionReference;
 import ru.vzotov.domain.model.Money;
+import ru.vzotov.gpb.GazprombankConfig;
+import ru.vzotov.gpb.domain.model.GpbOperation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static ru.vzotov.banking.domain.model.OperationType.DEPOSIT;
 import static ru.vzotov.banking.domain.model.OperationType.WITHDRAW;
@@ -114,7 +113,7 @@ public class AccountReportServiceGpb implements AccountReportService {
                     List<Card> cardList = cardRepository.findByMask(row.cardNumber())
                             .stream()
                             .filter(c -> BankId.GAZPROMBANK.equals(c.issuer()))
-                            .collect(Collectors.toList());
+                            .toList();
 
                     if (cardList.isEmpty()) {
                         log.error("Unable to find card by mask {}", row.cardNumber());
@@ -159,7 +158,7 @@ public class AccountReportServiceGpb implements AccountReportService {
             // Пропускаем записи о блокировании средств на счете.
             // Это незавершенные операции, нельзя их учитывать как полноценные операции
             // Для Газпромбанка работать не будет, т.к. у них проблемы в API по учету заблокированных средств
-            if (row.isHold()) {
+            if (row.hold()) {
                 accountingService.registerHoldOperation(
                         accountNumber,
                         row.operationDate().toLocalDate(),

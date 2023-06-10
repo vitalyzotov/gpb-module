@@ -1,71 +1,27 @@
 package ru.vzotov.gpb.domain.model;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import ru.vzotov.accounting.domain.model.AccountReportOperation;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class GpbOperation implements ValueObject<GpbOperation>, AccountReportOperation {
+public record GpbOperation(LocalDateTime operationDate,
+                           String accountNumber,
+                           String cardNumber,
+                           Double operationAmount,
+                           String operationCurrency,
+                           String description,
+                           boolean hold) implements ValueObject<GpbOperation>, AccountReportOperation {
 
-    private final LocalDateTime operationDate;
-    private final String accountNumber;
-    private final String cardNumber;
-    private final Double operationAmount;
-    private final String operationCurrency;
-    private final String description;
-    private final boolean hold;
-
-    public GpbOperation(
-                        LocalDateTime operationDate,
-                        String accountNumber,
-                        String cardNumber, Double operationAmount,
-                        String operationCurrency,
-                        String description,
-                        boolean hold
-    ) {
+    public GpbOperation {
         Validate.notNull(operationDate);
         Validate.notNull(operationAmount);
         Validate.notEmpty(operationCurrency);
         Validate.notNull(description);
 
-        this.operationDate = operationDate;
-        this.accountNumber = accountNumber;
-        this.cardNumber = cardNumber;
-        this.operationAmount = operationAmount;
-        this.operationCurrency = operationCurrency;
-        this.description = description;
-        this.hold = hold;
-    }
-
-    public LocalDateTime operationDate() {
-        return operationDate;
-    }
-
-    public String accountNumber() {
-        return accountNumber;
-    }
-
-    public String cardNumber() {
-        return cardNumber;
-    }
-
-    public Double operationAmount() {
-        return operationAmount;
-    }
-
-    public String operationCurrency() {
-        return operationCurrency;
-    }
-
-    public String description() {
-        return description;
-    }
-
-    public boolean isHold() {
-        return hold;
     }
 
     @Override
@@ -95,18 +51,5 @@ public class GpbOperation implements ValueObject<GpbOperation>, AccountReportOpe
                 , description
                 , hold
         );
-    }
-
-    @Override
-    public String toString() {
-        return "GpbOperation{" +
-                "date=" + operationDate +
-                ", card=" + cardNumber +
-                ", account=" + accountNumber +
-                ", amount=" + operationAmount +
-                ", currency=" + operationCurrency +
-                ", description=" + description +
-                ", hold=" + hold +
-                '}';
     }
 }
